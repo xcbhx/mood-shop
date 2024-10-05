@@ -25,3 +25,39 @@ body {
     text-decoration:none;
 }
 
+.items {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+}
+
+.items img {
+    width: 100%;
+    height: auto;
+}
+
+.name {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: large;
+    font-weight: 700;
+}
+
+p.desc { 
+    background-color: rgb(240, 237, 234);
+}
+
+p:nth-child(4) {
+    margin: auto;
+}
+
+button.add-to-cart {
+    display: block;
+    margin: auto;
+    background-color: rgb(198, 198, 198);
+    padding: 2%;
+}
+

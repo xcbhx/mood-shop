@@ -9,8 +9,8 @@ body {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-  background-color: bisque;
- }
+    background-color: bisque;
+}
 
 .page-header ul {
     display: flex;

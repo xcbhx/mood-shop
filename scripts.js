@@ -57,7 +57,16 @@ document.body.addEventListener('click', (e) => {
     if (e.target.matches(".add-to-cart")) {
       addItemToCart(e.target.dataset.id, e.target.dataset.price)
       displayCart() // display the cart!
-
+    } else if ( e.target.matches(".button-add")) {
+      // increase qty by 1
+      const name = e.target.dataset.id
+      addToCart(name)
+      displayCart()
+    } else if (e.target.matches(".button-sub")) {
+      // decrease qty by 1
+      const name = e.target.dataset.id // get the id
+      removeFromCart(name) // call remove cart
+      displayCart() // display the cart
     }
   })
 
@@ -72,6 +81,37 @@ const addItemToCart = (id, price) => {
     }
     // if no matching items were found add a new item
     cart.push({ id, price, qty: 1 })
+}
+
+const addToCart = (id) => {
+  for (let i =0; i < cart.length; i += 1) {
+    const item = cart[i] // get the item from the cart
+    // does the name match the name of the id?
+    if (id === item.id) {
+      // if so
+      item.qty += 1 // add 1 to qty
+      return // exit this function early
+    }
+  }
+}
+
+const removeFromCart = (id) => {
+  // loop over items in cart
+  for (let i = 0; i < cart.length; i += 1) {
+    // get an item 
+    const item = cart[i]
+    // does id match the item id?
+    if ( id === item.id) {
+      // if so, subtract 1 from item qty
+      item.qty -= 1
+      // check if the qty is 0
+      if (item.qty === 0) {
+        // if so remove this item from the cart
+        cart.splice(i, 1)
+      }
+      return
+    }
+  }
 }
 
 const displayCart = () => {

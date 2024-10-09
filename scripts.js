@@ -53,7 +53,7 @@ for (let i = 0; i < data.length; i += 1) {
 
 const cart = []
 
-document.body.addEventListener('click', (e) => {
+document.body.addEventListener("click", (e) => {
     if (e.target.matches(".add-to-cart")) {
       addItemToCart(e.target.dataset.id, e.target.dataset.price)
       displayCart() // display the cart!
@@ -69,6 +69,33 @@ document.body.addEventListener('click', (e) => {
       displayCart() // display the cart
     }
   })
+
+document.body.addEventListener("change", (e) => {
+  if (e.target.matches(".input-qty")) {
+    const name = e.target.dataset.id // get the id
+    const value = e.target.value // get the value from the input
+    updateCart(name, value) // call updateCart with the id and val
+    displayCart() // display the cart
+  }
+})
+
+const updateCart = (id, val) => {
+    // loop over item in cart
+    for (let i = 0; i < cart.length; i += 1) {
+      const item = cart[i] // get the item
+      if (id === item.id) {
+        // if the id matches set the qty
+        item.qty = val
+        // if the value is less than 1
+        if (item.qty < 1) {
+          // remove this item fom the cart
+          cart.splice(i, 1)
+        }
+        return // exit this function
+      }
+    }
+  }
+
 
 const addItemToCart = (id, price) => {
     // loop over cart items
@@ -133,3 +160,14 @@ const displayCart = () => {
     cartItems.innerHTML = cartStr
 }
 
+document.body.addEventListener("keydown", (e) => {
+  if (e.target.matches(".input.qty")) {
+    if (e.key === "Enter") {
+      const name = e.target.dataset.id
+      //use parseInt 
+      const value = parseInt(e.target.value)
+      updateCart(name, value)
+      displayCart()
+    }
+  }
+})

@@ -79,6 +79,19 @@ document.body.addEventListener("change", (e) => {
   }
 })
 
+document.body.addEventListener("keydown", (e) => {
+  if (e.target.matches(".input.qty")) {
+    if (e.key === "Enter") {
+      const name = e.target.dataset.id
+      //use parseInt 
+      const value = parseInt(e.target.value)
+      updateCart(name, value)
+      displayCart()
+    }
+  }
+})
+
+
 const updateCart = (id, val) => {
     // loop over item in cart
     for (let i = 0; i < cart.length; i += 1) {
@@ -154,20 +167,28 @@ const displayCart = () => {
             <button class="button-sub" data-id="${item.id}">-</button>
         </li>`
     }
+    // get the total cost in the cart
+    const cartTotal = getCartTotal()
+    // append a li tag at the end of the cartStr with the total
+    cartStr += `<li>Total: ${cartTotal}</li>`
+
     // get the cart 
     const cartItems = document.querySelector("#cart-items")
     // set the inner html of the cart
     cartItems.innerHTML = cartStr
 }
 
-document.body.addEventListener("keydown", (e) => {
-  if (e.target.matches(".input.qty")) {
-    if (e.key === "Enter") {
-      const name = e.target.dataset.id
-      //use parseInt 
-      const value = parseInt(e.target.value)
-      updateCart(name, value)
-      displayCart()
-    }
+const getCartTotal = () => {
+  let total = 0 // define a variable to hold the total
+  for (let i = 0; i < cart.length; i += 1) {
+    // get the cart item
+    const item = cart[i]
+    // calculate the total price for that item
+    // and add it to the total
+    total += item.qty * item.price
   }
-})
+  // used toFixed(2) to convert to string with 2 decimals
+  return total.toFixed(2) 
+}
+
+const theTotal = getCartTotal() // calling getCartTotal
